@@ -8,6 +8,5 @@ for line in open(document, "r"):
     secret_number += int(f"{linecharacters[0]}{linecharacters[-1]}") 
     
 print(secret_number)
-            
     
         
