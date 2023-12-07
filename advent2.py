@@ -1,18 +1,37 @@
-import regex as re
-from word2number import w2n
+filename = "puzzle2.txt"
 
-document = "puzzle1.txt"
+games = []
+
+for line in open(filename, "r"):
+    game = line.split(":")
+    gamenumber, data = game
+    infos = data.replace('\n', '').split(";")
+    
+    
+    red = 0
+    green = 0
+    blue = 0
+    
+    for info in infos:
+        for subinfo in info.split(","):
+            amount, color = subinfo.strip().split(" ")
+            if color == "red":
+                red = max(red,int(amount))
+            elif color == "green":
+                green = max(green,int(amount))
+            elif color == "blue":
+                blue = max(blue,int(amount))
+            
+    gamenumber = int(''.join(map(str, [char for char in gamenumber if char.isdigit()])))
+    
+    games.append({"game":gamenumber, "red": red , "green": green, "blue": blue})
+        
 secret_number = 0
 
-for line in open(document, "r"):
-    linecharacters = re.findall(r'(one|two|three|four|five|six|seven|eight|nine|\d)', line, overlapped=True)
-    for i in range(len(linecharacters)):
-        if not linecharacters[i].isnumeric():
-            linecharacters[i] = w2n.word_to_num(linecharacters[i])
-    secret_number += int(f"{linecharacters[0]}{linecharacters[-1]}") 
-    print(int(f"{linecharacters[0]}{linecharacters[-1]}"))
-    
-print(secret_number)
-            
-    
+threshold = {"red": 12, "green": 13, "blue": 14}
+
+for game in games: 
+    if game["red"] <= threshold["red"] and game["green"] <= threshold["green"] and game["blue"] <= threshold["blue"]:
+        secret_number += game["game"]
         
+print(secret_number)
