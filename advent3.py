@@ -2,12 +2,13 @@ surroundings = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
 
 filename = "puzzle3.txt"
 
-puzzle = open(filename, "r").read().split("\n")
+puzzle = open(filename, "r").readlines()
 
 # print(puzzle)
 numbers = []
 
 def main():
+    print(puzzle)
     for y, line in enumerate(puzzle):
         index = 0
         number = ""
@@ -43,7 +44,7 @@ def check(coordinates):
             
                 inspect = puzzle[b][a]
             
-                if not inspect.isdigit() and inspect != ".":
+                if not inspect.isdigit() and inspect != "." and inspect != "\n":
                     return True
             
             except IndexError:
@@ -55,34 +56,3 @@ if __name__ == "__main__":
     main()
 
             
-
-# print(numbers)
-
-# numbers = []
-
-# for x, line in enumerate(puzzle):
-#     for y, char in enumerate(line):
-#         indexes = set()
-#         if char.isdigit() and y not in indexes:
-#             indexes.add(y)
-#             coordinates = [(x,y)]
-#             number = char
-#             duration = 1
-#             while True:
-#                 try:
-#                     if puzzle[x][y+duration].isdigit():
-#                         index = y+duration
-#                         number = number + (puzzle[x][y+duration])
-#                         print(puzzle[x][y+duration])
-#                         indexes.add(y+index)
-#                         duration += 1
-#                     else: 
-#                         numbers.append(number)
-#                         break
-                            
-#                 except IndexError:
-#                     numbers.append(number)
-#                     break
-
-#print(numbers)
-                
